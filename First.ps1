@@ -6,7 +6,8 @@
     By Ehmiiz
 
 
-
+    TODO: 
+        1. Does not handle A and Z very well currently
 
     ----------
 
