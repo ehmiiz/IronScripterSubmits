@@ -17,58 +17,9 @@ You will first need to retrieve the text message from http://bit.ly/DarkFactionM
 You will also need to take blank lines into account in your decoding.
 #>
 
-function CypherCracker {
-    param (
-        $Value,
-        $IntFlip
-    )
-
-    # ASCI Int Mapping Table
-    $IntMappingTable = @()
-    $IntMappingTable = 1..128 | ForEach-Object { "$_ $([char]$_)" }
-
-    $Value = $Value.ToCharArray()
-
-    $FinalResult = @()
-
-    foreach ($v in $Value) {
-        # Get int of v
-        foreach ($int in $IntMappingTable) {
-            if ($v -eq "?") {
-                # to fix
-            }
-            elseif ($int -cmatch $v) {
-                if ($v -eq "a") {
-                    $IntFlip + 26
-                }
-                elseif ($v -eq "z") {
-                    $IntFlip - 26
-                }
-                
-                # "match: $int"
-                $a = $int.split(" ")
-                $ReturnValue = [int]$a[0] + $IntFlip
-                
-                $IntMapSelector = $ReturnValue - 1
-                if ($IntMapSelector -gt 0) {
-                    $FinalResult += $IntMappingTable[$IntMapSelector].split(" ")  | Select-Object -Last 1
-                }
-                
-                # 
-
-            }
-        }
-    }
-    return $FinalResult -join " "
-}
+Import-Module ./Invoke-CypherCracker.ps1
 
 $EncodedTextURI = 'https://ironscripter.us/wp-content/uploads/2019/04/cypher.txt'
 $EncodedText = Invoke-WebRequest $EncodedTextURI
 
-$EncodedText.Content
-
-CypherCracker -Value $EncodedText.Content -IntFlip -5
-
-
-
-
+Invoke-CypherCracker -Value $EncodedText.Content -IntFlip -5
