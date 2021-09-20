@@ -17,9 +17,9 @@ You will first need to retrieve the text message from http://bit.ly/DarkFactionM
 You will also need to take blank lines into account in your decoding.
 #>
 
-Import-Module ./Invoke-CypherCracker.ps1
+Import-Module ./Invoke-CaesarCipherCracker.ps1 -Force
 
 $EncodedTextURI = 'https://ironscripter.us/wp-content/uploads/2019/04/cypher.txt'
 $EncodedText = Invoke-WebRequest $EncodedTextURI
 
-Invoke-CypherCracker -Value $EncodedText.Content -IntFlip -5
+Invoke-CaesarCipherCracker -Value $EncodedText.Content -IntFlip -5
